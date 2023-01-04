@@ -2,13 +2,21 @@ package org.n0rth.shop;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
 public class ShopApplication {
 
 
     public static void main(String[] args) {
-        SpringApplication.run(ShopApplication.class, args);
+        ConfigurableApplicationContext configurableApplicationContext =
+                SpringApplication.run(ShopApplication.class, args);
+        PasswordEncoder passwordEncoder
+                = configurableApplicationContext.getBean(PasswordEncoder.class);
+
+        System.out.println(passwordEncoder.encode("1488"));
+
     }
 
 }

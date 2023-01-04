@@ -19,13 +19,14 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
+
 
     @Override
     public boolean save(UserDTO userDTO) {
@@ -49,6 +50,7 @@ public class UserServiceImpl implements UserService {
             throw new UsernameNotFoundException("User not found with name :" + username);
         }
         List<GrantedAuthority> roles = new ArrayList<>();
+
         roles.add(new SimpleGrantedAuthority(user.getRole().name()));
 
         return new org.springframework.security.core.userdetails.User(user.getName(),
