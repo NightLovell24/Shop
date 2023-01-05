@@ -14,12 +14,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
@@ -55,5 +56,20 @@ public class UserServiceImpl implements UserService {
 
         return new org.springframework.security.core.userdetails.User(user.getName(),
                 user.getPassword(), roles);
+
+
+    }
+
+    @Override
+    public List<UserDTO> findAll() {
+        return userRepository.findAll().stream()
+                .map(this::toDTO).collect(Collectors.toList());
+    }
+
+    private UserDTO toDTO(User user) {
+        return UserDTO.builder()
+                .username(user.getName())
+                .email(user.getEmail())
+                .phone(user.getPhone()).build();
     }
 }
