@@ -6,6 +6,10 @@
     <title>Login page</title>
 </head>
 <body>
+<div th:insert="~{fragments/menu :: #nav-menu}"></div>
+
+<p th:if="${loginError}" class="error">Bad credentials</p>
+
 <form th:action="@{/auth}" method="post">
     <table>
         <tr>

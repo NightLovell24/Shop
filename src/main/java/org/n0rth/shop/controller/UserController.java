@@ -38,7 +38,6 @@ public class UserController {
     @GetMapping
     public String userList(Model model) {
         model.addAttribute("userList", userService.findAll());
-
         return "userList";
     }
 }

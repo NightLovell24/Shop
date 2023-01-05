@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>User list</title>
+</head>
+<body>
+<div th:insert="~{fragments/menu :: #nav-menu}"></div>
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+    </tr>
+    <tr th:each="user : ${userList}">
+        <td th:text="${user.username}">User name</td>
+        <td th:text="${user.email}">User mail</td>
+        <td th:text="${user.phone}">User phone</td>
+    </tr>
+</table>
+<a th:href="@{/users/new}">Add new</a>
+
+</body>
+</html>
